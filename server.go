@@ -1,19 +1,25 @@
 package main
 
 import (
-	"github.com/souvikhaldar/golang-microservice-example/proto/sum"
 	"context"
+	micro "github.com/micro/go-micro"
+	"github.com/souvikhaldar/golang-microservice-example/sum"
+	"log"
 )
 
-type server struct{}
+type Server struct{}
 
-func (s *server) Sum(context.Context,request *sum.SumRequest,response *sum.SumResponse) error {
+func (s *Server) Sum(ctx context.Context, request *sum.SumRequest, response *sum.SumResponse) error {
 	response.Result = request.First + request.Second
 	return nil
 }
 
-func main(){
+func main() {
 	service := micro.NewService(
 		micro.Name("adder"),
 	)
+	service.Init()
+	sum.RegisterAdderHandler(service.Server(), new(Server))
+	log.Fatal(service.Run())
+
 }

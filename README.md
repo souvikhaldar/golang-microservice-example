@@ -12,3 +12,6 @@
 
 # How to run this example
 Open two terminals, run server first in one terminal, then client in the other one. You're done! 
+
+
+![](2019-12-07-14-05-25.png)
